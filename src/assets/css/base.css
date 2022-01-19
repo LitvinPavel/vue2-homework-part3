@@ -1,0 +1,11 @@
+.hw-container {
+  max-width: 41rem;
+  margin: 1rem auto;
+  height: calc(100vh - 2rem);
+  overflow: hidden;
+  border: 1px solid #F2F2F7;
+}
+
+html, body {
+  font-size: 14px;
+}

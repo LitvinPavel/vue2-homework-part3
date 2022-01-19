@@ -1,0 +1,40 @@
+.hw-message {
+  position: relative;
+  border-radius: 6px;
+  padding: .5rem 5.5rem 1.25rem .5rem;
+}
+
+.hw-message--right {
+  background-color: #007AFF;
+  color: white;
+  margin-left: auto;
+}
+
+.hw-message--left {
+  background-color: #F2F2F7;
+  margin-right: auto;
+}
+
+.hw-message--left-avatar {
+  position: absolute;
+  margin-left: -3.5rem;
+  margin-top: -.5rem;
+  width: 2.25rem;
+}
+
+.hw-message--right:after {
+  position: absolute;
+  content: '';
+  border:10px solid transparent;
+  border-top-color: #007AFF;
+  top: 0px;
+  right: -10px;
+}
+.hw-message--left:after {
+  position: absolute;
+  content: '';
+  border:10px solid transparent;
+  border-top-color: #F2F2F7;
+  top: 0px;
+  left: -10px;
+}
