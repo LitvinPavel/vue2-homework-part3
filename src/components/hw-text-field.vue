@@ -1,19 +1,3 @@
-<template>
-  <input
-    class="bg-transparent placeholder-current w-full pr-2"
-    type="text"
-    :id="id"
-    :name="name"
-    :value="value"
-    :placeholder="placeholder"
-    :disabled="disabled"
-    @input="onInput"
-    @focus="onFocusIn"
-    @blur="onFocusOut"
-    @keyup.enter="onEnter"
-  />
-</template>
-
 <script>
 export default {
   name: "hw-text-fild",
@@ -22,15 +6,8 @@ export default {
       type: [String, Number],
       default: ""
     },
-    id: {
-      type: [String, Number],
-      default: null
-    },
+
     placeholder: {
-      type: String,
-      default: null
-    },
-    name: {
       type: String,
       default: null
     },
@@ -49,10 +26,37 @@ export default {
     onFocusOut() {
       this.$emit("blur");
     },
-    onEnter() {
-      console.log("test")
+    onEnter(e) {
+      if (e.keyCode !== 13) return;
       this.$emit("enter");
-    }
+      this.clear();
+    },
+    doFocus() {
+      this.$refs.input.focus();
+    },
+    clear() {
+      this.$refs.input.value = "";
+    },
+  },
+  render(h) {
+    return h("input", {
+      class: "bg-transparent placeholder-current w-full pr-2",
+      ref: "input",
+      attrs: { type: "text" },
+      domProps: {
+        value: this.value
+      },
+      props: {
+        placeholder: this.placeholder,
+        disabled: this.disabled
+      },
+      on: {
+        input: this.onInput,
+        focus: this.onFocusIn,
+        blur: this.onFocusOut,
+        keyup: this.onEnter
+      }
+    });
   }
 };
 </script>

@@ -1,49 +1,77 @@
-<template>
-  <div class="hw-message hw-message-left hw-message-tail ml-9">
-    <img
-      :src="`/img/${avatar}.svg`"
-      :alt="avatar"
-      class="hw-message-avatar"
-    />
-    <div class="flex items-center">
-      <span v-if="name" class="font-semibold">{{ name }}</span>
-      <span v-if="position" class="text-secondary text-sm ml-2">{{
-        position
-      }}</span>
-    </div>
-    <p class="leading-none">{{ text }}</p>
-    <div class="text-sm inline-flex absolute right-0 whitespace-nowrap mr-1">
-      <span v-if="date">{{ date }}</span>
-    </div>
-  </div>
-</template>
-
 <script>
-const defaultAvatar = "ava1";
-
 export default {
   name: "hw-bot-message",
   props: {
     avatar: {
       type: String,
-      default: defaultAvatar
+      default: null,
     },
     name: {
       type: String,
-      default: null
+      default: null,
     },
     position: {
       type: String,
-      default: null
+      default: null,
     },
     text: {
       type: String,
-      default: null
+      default: null,
     },
     date: {
-      type: String,
-      default: null
+      type: [Date, String],
+      default: null,
+    },
+    notFirst: {
+      type: Boolean,
+      default: false,
+    },
+  },
+  methods: {
+    getTime(date) {
+      return date.toLocaleTimeString("en-US", {
+        hour: "2-digit",
+        minute: "2-digit",
+      });
+    },
+  },
+  render(h) {
+    let content = [];
+    if (this.avatar)
+      content.push(
+        h("img", {
+          attrs: { src: `/img/${this.avatar}.svg`, alt: this.avatart },
+          class: "hw-message-avatar",
+        })
+      );
+    if (this.name || this.position) {
+      content.push(
+        h("div", { class: "flex items-center" }, [
+          h("span", { class: "font-semibold" }, this.name),
+          h("span", { class: "text-secondary text-sm ml-2" }, this.position),
+        ])
+      );
     }
-  }
+    if (this.text) content.push(h("p", { class: "leading-none" }, this.text));
+    if (this.date)
+      content.push(
+        h(
+          "div",
+          {
+            class:
+              "text-sm inline-flex absolute right-0 whitespace-nowrap mr-1",
+          },
+          [h("span", this.getTime(this.date))]
+        )
+      );
+
+    return h(
+      "div",
+      {
+        class: `hw-message hw-message-left ml-9 ${this.notFirst ? '' : 'hw-message-tail'}`
+      },
+      content
+    );
+  },
 };
 </script>
