@@ -13,7 +13,8 @@ export default {
   },
   data() {
     return {
-      message: null
+      message: null,
+      showPopup: false
     };
   },
   methods: {
@@ -38,8 +39,12 @@ export default {
         on: { enter: this.sendMessage, input: (event) => (this.message = event) },
         ref: "textField",
       }),
-      h("button", { class: "cursor-pointer", on: { click: this.startCommand } }, [
-        h("hw-at-icon", { class: "w-5 h-5" })
+      h("button", { class: "cursor-pointer relative", on: { click: this.startCommand, mouseenter: () => this.showPopup = true, mouseleave: () => this.showPopup = false } }, [
+        h("hw-at-icon", { class: "w-5 h-5" }),
+        h("ul", { class: `${this.showPopup ? 'block' : 'hidden'} absolute -mt-24 -ml-12 bg-white shadow p-2 text-left` }, [
+          h("li", "@[bot_name]"),
+          h("li", "@stop")
+        ])
       ]),
       h("button", { class: "cursor-pointer", on: { click: this.sendMessage } }, [
         h("hw-send-icon", { class: "w-5 h-5" })
