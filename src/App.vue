@@ -27,7 +27,7 @@ export default {
     };
   },
   mounted() {
-    this.pushMessageTimer = window.setInterval(this.startPushedMessage, 5000);
+    this.pushMessageTimer = window.setInterval(this.startPushedMessage, 10000);
   },
   beforeDestroy() {
     this.stopBots();
