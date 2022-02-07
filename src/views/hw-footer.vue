@@ -25,6 +25,7 @@ export default {
         date: new Date(),
       });
       this.$refs.textField.clear();
+      this.message = null;
     },
     startCommand() {
       this.message = '@';

@@ -18,12 +18,28 @@ export default {
       return new Date().toLocaleDateString("en-US");
     }
   },
+  watch: {
+    list() {
+      this.scrollToLastMessage();
+    }
+  },
+  methods: {
+    scrollToLastMessage() {
+      this.$nextTick(() => {
+        const { lastElementChild } = this.$refs.messageList;
+        if (lastElementChild) {
+          lastElementChild.scrollIntoView();
+        }
+      });
+    }
+  },
   render(h) {
     return h(
       "main",
       {
         class:
           "flex flex-col items-center py-4 px-6 flex-grow space-y-2 overflow-y-auto",
+        ref: "messageList"
       },
       [
         h("p", { class: "text-secondary mb-6" }, this.dateNow),

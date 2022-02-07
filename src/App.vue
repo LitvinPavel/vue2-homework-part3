@@ -46,10 +46,12 @@ export default {
           (this.messageList[this.messageList.length - 1] || {}).name ===
           (mess || {}).name;
       }
-      this.messageList.push({
+      if (mess && mess.text) {
+        this.messageList.push({
         ...mess,
         notFirst,
       });
+      }
     },
     startPushedMessage() {
       const { id, name, position, avatar } = bots[randomIndex(bots) || 0];
